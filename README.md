@@ -2,6 +2,10 @@
 
 A comprehensive web portal for generating production-ready docker-compose files with automated security scanning, misconfiguration detection, and intelligent service recommendations from Docker Hub.
 
+To be eligible for MLSA X HACKTOBERFEST: 
+Register here: https://register.mlsakiit.com/
+Star this repo: https://github.com/keploy/keploy
+
 ## 🚀 Overview
 
 **ComposeGenie** is a complete solution for safely deploying containerized applications. It fetches services from Docker Hub, scans for vulnerabilities, detects configuration issues (port conflicts, missing environment variables), and suggests alternative image versions if severe security issues are found - all before you download your compose file.
