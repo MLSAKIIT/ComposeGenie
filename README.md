@@ -169,7 +169,7 @@ The application (Local Runtime Endpoints) will be available at:
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see [CONTRIBUTOR.md](CONTRIBUTOR.md) for guidelines on:
+We welcome contributions! Please see [CONTRIBUTOR.md](CONTRIBUTING.md) for guidelines on:
 
 - Setting up the development environment
 - Code style and standards
