@@ -1,4 +1,4 @@
-# Contributing to Docker Compose Generator Web
+# Contributing to ComposeGenie
 
 We're excited that you're interested in contributing to Docker Compose Generator Web! This document provides guidelines and information to help you contribute effectively.
 
