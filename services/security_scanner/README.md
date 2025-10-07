@@ -6,9 +6,11 @@ A FastAPI service that scans Docker images for vulnerabilities using Trivy.
 ```bash
 docker build -t trivy-scanner .
 docker run -p 8000:8000 trivy-scanner
+```
 
 ## Run with Uvicorn
 ```bash
 pip install -r requirements.txt
 uvicorn main:app
+```
 
