@@ -36,6 +36,11 @@ def scan_image(image_name: str):
 
         return {"image": image_name, "vulnerabilities": summary}
 
+    except FileNotFoundError or "trivy" in str(e):
+        # Download Trivy
+        subprocess.run(["curl", "-sfL", "https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh", "|", "sh"], check=True)
+        return {"error": "Trivy was not found. It has been installed, please retry the scan."}
+
     except Exception as e:
         return {"error": str(e)}
 
