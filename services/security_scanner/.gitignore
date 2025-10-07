@@ -1,0 +1,98 @@
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# --- Virtual environments ---
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+
+# --- Build and distribution ---
+build/
+dist/
+*.egg-info/
+.eggs/
+*.egg
+pip-wheel-metadata/
+
+# --- PyInstaller ---
+*.manifest
+*.spec
+
+# --- Unit test / coverage reports ---
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+pytest_cache/
+test-results/
+
+# --- Logs and debug ---
+*.log
+*.pot
+*.mo
+logs/
+debug.log
+uvicorn.log
+
+# --- FastAPI specific ---
+# Cache and compiled templates
+.cache/
+__pypackages__/
+*.db
+*.sqlite3
+
+# --- Jupyter Notebook ---
+.ipynb_checkpoints
+*.ipynb
+
+# --- Editor directories and files ---
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# --- System files ---
+.DS_Store
+Thumbs.db
+
+# --- Docker ---
+# Ignore local overrides
+docker-compose.override.yml
+# Ignore build artifacts
+*.pid
+*.tar
+*.bak
+
+# --- Environment variables ---
+.env
+.env.*
+!env.example
+
+# --- Migrations (if using Alembic) ---
+alembic/versions/*.pyc
+alembic/versions/__pycache__/
+alembic/versions/*_tmp.py
+
+# --- Optional: SQLite databases for local dev ---
+*.sqlite
+*.sqlite3
+
+# --- MyPy / Lint ---
+.mypy_cache/
+.dmypy.json
+.pyre/
+.pytype/
+ruff_cache/
