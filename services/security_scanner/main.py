@@ -5,7 +5,7 @@ import tempfile
 
 app = FastAPI()
 
-@app.get("/scan")
+@app.get("/scan") # Endpoint to scan a Docker image: scan?image_name=your_image
 def scan_image(image_name: str):
     try:
         # Run Trivy scan as subprocess
