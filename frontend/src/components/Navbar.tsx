@@ -143,10 +143,9 @@ const Navbar = () => {
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="inline-flex items-center justify-center p-2 rounded-md text-gray-300 hover:text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-500/70 focus:ring-offset-2 focus:ring-offset-slate-900"
-              aria-label="Toggle navigation"
+              aria-label={isOpen ? "Close main menu" : "Open main menu"}
               aria-expanded={isOpen}
             >
-              <span className="sr-only">Open main menu</span>
               {isOpen ? (
                 <svg
                   className="block h-6 w-6"
