@@ -1,3 +1,43 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+debug.log
+uvicorn.log
+
+# Dependencies and builds
+node_modules
+dist
+dist-ssr
+*.local
+build/
+*.egg-info/
+.eggs/
+*.egg
+pip-wheel-metadata/
+
+# Editor and IDE files
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.sublime-project
+*.sublime-workspace
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Python-specific
+# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
@@ -5,26 +45,18 @@ __pycache__/
 # C extensions
 *.so
 
-# --- Virtual environments ---
+# Virtual environments
 .venv/
 venv/
 env/
 ENV/
 env.bak/
 
-# --- Build and distribution ---
-build/
-dist/
-*.egg-info/
-.eggs/
-*.egg
-pip-wheel-metadata/
-
-# --- PyInstaller ---
+# PyInstaller
 *.manifest
 *.spec
 
-# --- Unit test / coverage reports ---
+# Unit test / coverage reports
 htmlcov/
 .tox/
 .nox/
@@ -39,36 +71,18 @@ coverage.xml
 pytest_cache/
 test-results/
 
-# --- Logs and debug ---
-*.log
-*.pot
-*.mo
-logs/
-debug.log
-uvicorn.log
-
-# --- FastAPI specific ---
+# FastAPI specific
 # Cache and compiled templates
 .cache/
 __pypackages__/
 *.db
 *.sqlite3
 
-# --- Jupyter Notebook ---
+# Jupyter Notebook
 .ipynb_checkpoints
 *.ipynb
 
-# --- Editor directories and files ---
-.vscode/
-.idea/
-*.sublime-project
-*.sublime-workspace
-
-# --- System files ---
-.DS_Store
-Thumbs.db
-
-# --- Docker ---
+# Docker
 # Ignore local overrides
 docker-compose.override.yml
 # Ignore build artifacts
@@ -76,21 +90,21 @@ docker-compose.override.yml
 *.tar
 *.bak
 
-# --- Environment variables ---
+# Environment variables
 .env
 .env.*
 !env.example
 
-# --- Migrations (if using Alembic) ---
+# Migrations (if using Alembic)
 alembic/versions/*.pyc
 alembic/versions/__pycache__/
 alembic/versions/*_tmp.py
 
-# --- Optional: SQLite databases for local dev ---
+# Optional: SQLite databases for local dev
 *.sqlite
 *.sqlite3
 
-# --- MyPy / Lint ---
+# MyPy / Lint
 .mypy_cache/
 .dmypy.json
 .pyre/

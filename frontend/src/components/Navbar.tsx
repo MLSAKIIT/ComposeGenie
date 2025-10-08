@@ -1,11 +1,17 @@
-import { useEffect, useRef, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import "../styles/navbar.css";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [bubbleStyle, setBubbleStyle] = useState<{ left: number; width: number; opacity: number }>({ left: 0, width: 0, opacity: 0 });
+  const [bubbleStyle, setBubbleStyle] = useState<{
+    left: number;
+    width: number;
+    opacity: number;
+  }>({ left: 0, width: 0, opacity: 0 });
   const navContainerRef = useRef<HTMLDivElement | null>(null);
   const activeRef = useRef<HTMLAnchorElement | null>(null);
+  const location = useLocation();
 
   useEffect(() => {
     const onEsc = (e: KeyboardEvent) => {
@@ -19,11 +25,6 @@ const Navbar = () => {
     };
   }, []);
 
-  const linkBase =
-    "relative z-10 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150 after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:rounded-full after:bg-indigo-500 after:transition-all after:duration-300 after:content-[''] after:hidden md:after:block";
-  const getNavClass = ({ isActive }: { isActive: boolean }) =>
-    `${linkBase} ${isActive ? "text-white after:w-full after:opacity-100" : "text-gray-300 hover:text-white after:w-0 after:opacity-0 hover:after:w-full hover:after:opacity-100"}`;
-
   const moveBubbleTo = (el: HTMLElement | null) => {
     const container = navContainerRef.current;
     if (!container || !el) return setBubbleStyle((s) => ({ ...s, opacity: 0 }));
@@ -34,121 +35,94 @@ const Navbar = () => {
     setBubbleStyle({ left, width, opacity: 1 });
   };
 
+  useEffect(() => {
+    // Find and track the active link after navigation
+    const container = navContainerRef.current;
+    if (container) {
+      const activeLink = container.querySelector(
+        'a[aria-current="page"]'
+      ) as HTMLAnchorElement;
+      if (activeLink) {
+        activeRef.current = activeLink;
+        moveBubbleTo(activeLink);
+      }
+    }
+  }, [location.pathname]); // Only run when route changes
+
+  const getNavClass = ({ isActive }: { isActive: boolean }) =>
+    `navbar-link-base ${
+      isActive ? "navbar-link-active" : "navbar-link-inactive"
+    }`;
+
+  const navLinks = [
+    { to: "/dashboard", label: "Dashboard" },
+    { to: "/catalog", label: "Catalog" },
+    { to: "/templates", label: "Templates" },
+    { to: "/security", label: "Security" },
+  ];
+
   return (
-    <nav className="sticky top-0 z-50 relative overflow-hidden bg-gradient-to-r from-slate-900 via-gray-900 to-black/90 text-white backdrop-blur border-b border-white/10">
+    <nav className="navbar-container">
       {/* Tech-style background layers */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 z-0">
+      <div aria-hidden={true} className="navbar-bg-overlay">
         {/* Subtle grid */}
-        <div
-          className="absolute inset-0 opacity-[0.10]"
-          style={{
-            backgroundImage:
-              "linear-gradient(to right, rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.08) 1px, transparent 1px)",
-            backgroundSize: "24px 24px",
-            backgroundPosition: "top left",
-          }}
-        />
+        <div className="navbar-grid-pattern" />
         {/* Radial glow accents */}
-        <div className="absolute -top-16 left-24 h-40 w-72 rounded-full bg-indigo-500/20 blur-3xl animate-pulse" />
-        <div className="absolute bottom-[-3rem] right-[-2rem] h-56 w-56 rounded-full bg-cyan-400/10 blur-3xl" />
+        <div className="navbar-glow-left" />
+        <div className="navbar-glow-right" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-3 items-center h-16">
+      <div className="navbar-content">
+        <div className="navbar-grid">
           {/* Left: Brand */}
-          <div className="flex items-center">
-            <div className="flex-shrink-0">
-              <Link to="/" className="flex items-center gap-2 text-white font-bold text-xl">
+          <div className="navbar-brand-container">
+            <div className="navbar-brand">
+              <Link to="/" className="navbar-brand-link">
                 <span>ComposeGenie</span>
               </Link>
             </div>
           </div>
           {/* Center: Nav links (desktop) */}
-          <div className="hidden md:block">
+          <div className="navbar-links-container">
             <div
-              className="relative mx-auto flex items-baseline justify-center gap-1"
+              className="navbar-links-wrapper"
               ref={navContainerRef}
               onMouseLeave={() => moveBubbleTo(activeRef.current)}
             >
-                {/* Animated bubble */}
-                <span
-                  className="absolute top-1/2 -translate-y-1/2 h-8 rounded-md bg-white/10 blur-[0.2px] transition-all duration-300 ease-out pointer-events-none"
-                  style={{ left: bubbleStyle.left, width: bubbleStyle.width, opacity: bubbleStyle.opacity }}
-                />
-
+              {/* Animated bubble */}
+              <span
+                className="navbar-bubble"
+                style={{
+                  left: bubbleStyle.left,
+                  width: bubbleStyle.width,
+                  opacity: bubbleStyle.opacity,
+                }}
+              />
+              {navLinks.map((link) => (
                 <NavLink
-                  to="/dashboard"
-                  className={(args) => {
-                    const cls = getNavClass(args);
-                    return cls;
-                  }}
-                  onMouseEnter={(e) => moveBubbleTo(e.currentTarget)}
-                  ref={(el) => {
-                    if (el && el.getAttribute("aria-current") === "page") {
-                      activeRef.current = el;
-                      moveBubbleTo(el);
-                    }
-                  }}
-                  onClick={() => setIsOpen(false)}
-                >
-                  Dashboard
-                </NavLink>
-                <NavLink
-                  to="/catalog"
+                  key={link.to}
+                  to={link.to}
                   className={(args) => getNavClass(args)}
                   onMouseEnter={(e) => moveBubbleTo(e.currentTarget)}
-                  ref={(el) => {
-                    if (el && el.getAttribute("aria-current") === "page") {
-                      activeRef.current = el;
-                      moveBubbleTo(el);
-                    }
-                  }}
                   onClick={() => setIsOpen(false)}
                 >
-                  Catalog
+                  {link.label}
                 </NavLink>
-                <NavLink
-                  to="/templates"
-                  className={(args) => getNavClass(args)}
-                  onMouseEnter={(e) => moveBubbleTo(e.currentTarget)}
-                  ref={(el) => {
-                    if (el && el.getAttribute("aria-current") === "page") {
-                      activeRef.current = el;
-                      moveBubbleTo(el);
-                    }
-                  }}
-                  onClick={() => setIsOpen(false)}
-                >
-                  Templates
-                </NavLink>
-                <NavLink
-                  to="/security"
-                  className={(args) => getNavClass(args)}
-                  onMouseEnter={(e) => moveBubbleTo(e.currentTarget)}
-                  ref={(el) => {
-                    if (el && el.getAttribute("aria-current") === "page") {
-                      activeRef.current = el;
-                      moveBubbleTo(el);
-                    }
-                  }}
-                  onClick={() => setIsOpen(false)}
-                >
-                  Security
-                </NavLink>
+              ))}
             </div>
           </div>
           {/* Right: Mobile menu button */}
-          <div className="col-start-3 justify-self-end md:hidden">
+          <div className="navbar-mobile-button-container">
             {/* Mobile menu button */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-300 hover:text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-500/70 focus:ring-offset-2 focus:ring-offset-slate-900"
+              className="navbar-mobile-button"
               aria-label={isOpen ? "Close main menu" : "Open main menu"}
               aria-expanded={isOpen}
             >
               {isOpen ? (
                 <svg
-                  className="block h-6 w-6"
+                  className="navbar-mobile-icon"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -164,7 +138,7 @@ const Navbar = () => {
                 </svg>
               ) : (
                 <svg
-                  className="block h-6 w-6"
+                  className="navbar-mobile-icon"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -185,22 +159,23 @@ const Navbar = () => {
       </div>
 
       {isOpen && (
-        <div className="md:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <NavLink to="/dashboard" className={({ isActive }) => `${isActive ? "bg-white/10 text-white" : "text-gray-300 hover:text-white hover:bg-white/10"} block px-3 py-2 rounded-md text-base font-medium`} onClick={() => setIsOpen(false)}>
-              Dashboard
-            </NavLink>
-            <NavLink to="/catalog" className={({ isActive }) => `${isActive ? "bg-white/10 text-white" : "text-gray-300 hover:text-white hover:bg-white/10"} block px-3 py-2 rounded-md text-base font-medium`} onClick={() => setIsOpen(false)}>
-              Catalog
-            </NavLink>
-            <NavLink to="/templates" className={({ isActive }) => `${isActive ? "bg-white/10 text-white" : "text-gray-300 hover:text-white hover:bg-white/10"} block px-3 py-2 rounded-md text-base font-medium`} onClick={() => setIsOpen(false)}>
-              Templates
-            </NavLink>
-            <NavLink to="/security" className={({ isActive }) => `${isActive ? "bg-white/10 text-white" : "text-gray-300 hover:text-white hover:bg-white/10"} block px-3 py-2 rounded-md text-base font-medium`} onClick={() => setIsOpen(false)}>
-              Security
-            </NavLink>
+        <div className="navbar-mobile-menu">
+          <div className="navbar-mobile-links">
+            {navLinks.map((link) => (
+              <NavLink
+                key={link.to}
+                to={link.to}
+                className={({ isActive }) =>
+                  isActive
+                    ? "navbar-mobile-link-active"
+                    : "navbar-mobile-link-inactive"
+                }
+                onClick={() => setIsOpen(false)}
+              >
+                {link.label}
+              </NavLink>
+            ))}
           </div>
-          {/* Mobile user profile section removed */}
         </div>
       )}
     </nav>

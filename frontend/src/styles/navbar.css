@@ -1,0 +1,122 @@
+@import "tailwindcss";
+
+/* Navbar Container */
+.navbar-container {
+  @apply sticky top-0 z-50 bg-gradient-to-r from-slate-900 via-gray-900 to-black/90 text-white backdrop-blur border-b border-white/10;
+}
+
+/* Background Decorations */
+.navbar-bg-overlay {
+  @apply pointer-events-none absolute inset-0 z-0 overflow-hidden;
+}
+
+.navbar-grid-pattern {
+  @apply absolute inset-0 opacity-[0.10];
+  background-image: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0.08) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-position: top left;
+}
+
+.navbar-glow-left {
+  @apply absolute -top-16 left-24 h-40 w-72 rounded-full bg-indigo-500/20 blur-3xl animate-pulse;
+}
+
+.navbar-glow-right {
+  @apply absolute bottom-[-3rem] right-[-2rem] h-56 w-56 rounded-full bg-cyan-400/10 blur-3xl;
+}
+
+/* Layout */
+.navbar-content {
+  @apply relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.navbar-grid {
+  @apply grid grid-cols-3 items-center h-16;
+}
+
+.navbar-brand-container {
+  @apply flex items-center;
+}
+
+.navbar-brand {
+  @apply flex-shrink-0;
+}
+
+.navbar-brand-link {
+  @apply flex items-center gap-2 text-white font-bold text-xl;
+}
+
+/* Desktop Navigation */
+.navbar-links-container {
+  @apply hidden md:block;
+}
+
+.navbar-links-wrapper {
+  @apply relative mx-auto flex items-baseline justify-center gap-1;
+}
+
+.navbar-bubble {
+  @apply absolute top-1/2 -translate-y-1/2 h-8 rounded-md bg-white/10 blur-[0.2px] transition-all duration-300 ease-out pointer-events-none;
+}
+
+.navbar-link-base {
+  @apply relative z-10 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150;
+}
+
+.navbar-link-base::after {
+  @apply absolute left-0 -bottom-1 h-0.5 rounded-full bg-indigo-500 transition-all duration-300 content-[''] hidden md:block;
+}
+
+.navbar-link-active {
+  @apply text-white;
+}
+
+.navbar-link-active::after {
+  @apply w-full opacity-100;
+}
+
+.navbar-link-inactive {
+  @apply text-gray-300 hover:text-white;
+}
+
+.navbar-link-inactive::after {
+  @apply w-0 opacity-0;
+}
+
+.navbar-link-inactive:hover::after {
+  @apply w-full opacity-100;
+}
+
+/* Mobile Menu */
+.navbar-mobile-button-container {
+  @apply col-start-3 justify-self-end md:hidden;
+}
+
+.navbar-mobile-button {
+  @apply inline-flex items-center justify-center p-2 rounded-md text-gray-300 hover:text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-500/70 focus:ring-offset-2 focus:ring-offset-slate-900;
+}
+
+.navbar-mobile-icon {
+  @apply block h-6 w-6;
+}
+
+.navbar-mobile-menu {
+  @apply md:hidden;
+}
+
+.navbar-mobile-links {
+  @apply px-2 pt-2 pb-3 space-y-1 sm:px-3;
+}
+
+.navbar-mobile-link-active {
+  @apply bg-white/10 text-white block px-3 py-2 rounded-md text-base font-medium;
+}
+
+.navbar-mobile-link-inactive {
+  @apply text-gray-300 hover:text-white hover:bg-white/10 block px-3 py-2 rounded-md text-base font-medium;
+}
