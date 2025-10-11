@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Root from "./pages/root";
 import Dashboard from "./pages/Dashboard";
 import Catalog from "./pages/Catalog";
 import Templates from "./pages/Templates";
@@ -12,7 +11,7 @@ const App = () => {
     <BrowserRouter>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Root />} />
+        <Route path="/" element={<Dashboard />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/catalog" element={<Catalog />} />
         <Route path="/templates" element={<Templates />} />
