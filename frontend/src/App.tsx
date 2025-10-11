@@ -5,13 +5,14 @@ import Catalog from "./pages/Catalog";
 import Templates from "./pages/Templates";
 import Security from "./pages/Security";
 import NotFound from "./pages/NotFound";
+import Root from "./pages/root";
 
 const App = () => {
   return (
     <BrowserRouter>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Dashboard />} />
+        <Route path="/" element={<Root />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/catalog" element={<Catalog />} />
         <Route path="/templates" element={<Templates />} />

@@ -55,7 +55,7 @@ const Navbar = () => {
     }`;
 
   const navLinks = [
-    { to: "/", label: "Dashboard" },
+    { to: "/dashboard", label: "Dashboard" },
     { to: "/catalog", label: "Catalog" },
     { to: "/templates", label: "Templates" },
     { to: "/security", label: "Security" },
