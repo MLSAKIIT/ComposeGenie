@@ -1,11 +1,11 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Root from "./pages/root";
 import Dashboard from "./pages/Dashboard";
 import Catalog from "./pages/Catalog";
 import Templates from "./pages/Templates";
 import Security from "./pages/Security";
 import NotFound from "./pages/NotFound";
+import Root from "./pages/root";
 
 const App = () => {
   return (
