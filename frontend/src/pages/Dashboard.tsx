@@ -33,9 +33,9 @@ const Stat = ({ label, value }: { label: string; value: string | number }) => (
 );
 
 const statusPillStyles: Record<ScanItem["status"], string> = {
-  passed: "border-gray-700 bg-gray-800 text-gray-300",
-  issues: "border-gray-700 bg-gray-800 text-gray-300",
-  failed: "border-gray-700 bg-gray-800 text-gray-300",
+  passed: "border-green-700 bg-green-900 text-green-300",
+  issues: "border-yellow-700 bg-yellow-900 text-yellow-300",
+  failed: "border-red-700 bg-red-900 text-red-300",
 };
 
 const formatTimeAgo = (iso: string) => {
