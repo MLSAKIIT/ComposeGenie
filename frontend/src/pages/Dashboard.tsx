@@ -131,7 +131,16 @@ const Dashboard = () => {
   <Stat label="Total Templates" value={totalTemplates} />
   <Stat label="Recent Scans" value={recentScans} />
   <Stat label="Passed Scans" value={passed} />
-  <Stat label="Validation Status" value={passed === recentScans ? "Healthy" : "Attention"} />
+  <Stat
+    label="Validation Status"
+    value={
+      recentScans === 0
+        ? "No Data"
+        : passed === recentScans
+        ? "Healthy"
+        : "Attention"
+    }
+  />
       </div>
 
       {/* Main grid */}
