@@ -27,6 +27,14 @@ function toTitleCase(s: string) {
     .replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
+// Prefix 'v' for version-like tags (e.g., 1.25.3 -> v1.25.3). Leave non-version tags (e.g., latest) unchanged.
+function formatVersionTag(tag?: string) {
+  if (!tag) return '';
+  if (/^v/i.test(tag)) return tag;
+  if (/^\d/.test(tag)) return `v${tag}`;
+  return tag;
+}
+
 const Catalog = () => {
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState<string>('All');
@@ -109,34 +117,33 @@ const Catalog = () => {
         <p className="text-gray-300 mt-1">{headerText}</p>
       </header>
 
-      <div className="mb-6 grid grid-cols-1 gap-3 md:grid-cols-3">
-        <div className="md:col-span-2">
-          <div className="relative">
-            <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" className="opacity-80">
-                <path d="M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z" stroke="currentColor" strokeWidth="2"/>
-                <path d="M21 21l-4.3-4.3" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-              </svg>
-            </span>
-            <input
-              type="text"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search images (e.g. nginx, postgres, redis)"
-              className="w-full rounded-xl bg-gray-800 border border-gray-700 text-gray-100 placeholder-gray-400 pl-10 pr-9 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              aria-label="Search Docker images"
-            />
-            {query && (
-              <button
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-300 hover:text-white"
-                onClick={() => setQuery('')}
-                aria-label="Clear search"
-                title="Clear"
-              >
-                ×
-              </button>
-            )}
-          </div>
+      {/* Search on top, categories below for better UI */}
+      <div className="mb-6 space-y-3">
+        <div className="relative">
+          <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" className="opacity-80">
+              <path d="M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z" stroke="currentColor" strokeWidth="2"/>
+              <path d="M21 21l-4.3-4.3" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+            </svg>
+          </span>
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search images (e.g. nginx, postgres, redis)"
+            className="w-full rounded-xl bg-gray-800 border border-gray-700 text-gray-100 placeholder-gray-400 pl-10 pr-9 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            aria-label="Search Docker images"
+          />
+          {query && (
+            <button
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-300 hover:text-white"
+              onClick={() => setQuery('')}
+              aria-label="Clear search"
+              title="Clear"
+            >
+              ×
+            </button>
+          )}
         </div>
 
         <div className="overflow-x-auto">
@@ -205,7 +212,7 @@ const Catalog = () => {
                         <div className="ml-auto flex items-center gap-1 shrink-0">
                           {img.latestTag && (
                             <span className="text-xs text-gray-300 bg-gray-700 rounded px-2 py-0.5">
-                              {img.latestTag}
+                              {formatVersionTag(img.latestTag)}
                             </span>
                           )}
                         </div>
