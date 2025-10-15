@@ -190,7 +190,7 @@ const Catalog = () => {
               const key = `${img.name}:${img.latestTag}`;
               const added = !!addedMap[key];
               const displayName = toTitleCase(img.name);
-              const imgUrl = (img as any).logo || (img as any).imageUrl || placeholderLogo;
+              const imgUrl = img.logo || img.imageUrl || placeholderLogo;
 
               return (
                 <article
