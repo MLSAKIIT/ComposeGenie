@@ -86,11 +86,7 @@ export default function ServiceCard({
           <span aria-hidden className="text-blue-400">⬇</span>
           <span>{formatNum(pulls)}</span>
         </div>
-        {latestTag && (
-          <div className="truncate text-xs text-gray-400 ml-auto">
-            :{latestTag}
-          </div>
-        )}
+        
       </div>
 
       <div className="mt-auto pt-4">
