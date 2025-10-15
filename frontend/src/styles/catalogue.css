@@ -1,0 +1,119 @@
+/* Catalogue page styles */
+
+.catalogue-page {
+  /* Allow long words/URLs to wrap naturally */
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+/* Fully visible titles (no truncation) */
+.catalogue-page h3,
+.catalogue-page .service-title {
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  line-height: 1.25;
+  min-width: 0;
+  word-break: break-word;
+}
+
+/* Equal-height cards and stable footer at bottom */
+.catalogue-page .catalogue-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
+  overflow: hidden; /* prevent child overflow */
+}
+
+.catalogue-page .catalogue-card * {
+  min-width: 0; /* allow flex children to shrink and ellipsize */
+}
+
+.catalogue-page .catalogue-card-footer {
+  margin-top: auto;
+}
+
+/* Description clamps to avoid overflow while keeping heights consistent */
+.catalogue-page .catalogue-desc {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;      /* show up to 3 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Consistent logo sizing (from mockdata URL) */
+.catalogue-page .catalogue-card-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 0.375rem;
+  object-fit: contain;
+  background: #374151; /* gray-700 */
+  padding: 4px;
+}
+
+/* Keep stars and downloads on one line */
+.catalogue-page .catalogue-stats {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  white-space: nowrap; /* prevent wrapping */
+}
+
+/* Fixed "Open Composer" FAB bottom-right */
+.catalogue-composer-fab {
+  position: fixed;
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  z-index: 50;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+
+  color: #ffffff;
+  background: #2563eb; /* blue-600 */
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.3),
+    0 4px 6px -2px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  text-decoration: none;
+}
+
+.catalogue-composer-fab:hover {
+  background: #3b82f6; /* blue-500 */
+}
+
+.catalogue-composer-fab:active {
+  transform: translateY(1px);
+  box-shadow:
+    0 4px 6px -2px rgba(0, 0, 0, 0.2),
+    0 2px 4px -1px rgba(0, 0, 0, 0.3);
+}
+
+/* Small screens */
+@media (max-width: 640px) {
+  .catalogue-composer-fab {
+    padding: 0.6rem 0.85rem;
+    font-size: 0.9rem;
+    right: max(0.75rem, env(safe-area-inset-right));
+    bottom: max(0.75rem, env(safe-area-inset-bottom));
+    border-radius: 0.65rem;
+  }
+}
+
+/* Small “Add to Composer” button */
+.catalogue-btn-add {
+  padding: 0.375rem 0.625rem;   /* ~py-1.5 px-2.5 */
+  font-size: 0.75rem;           /* text-xs */
+  line-height: 1rem;
+  border-radius: 0.375rem;      /* rounded-md */
+  white-space: nowrap;          /* keep label on one line */
+}
